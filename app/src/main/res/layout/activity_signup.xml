@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".SignupActivity"
+    android:orientation="vertical">
+
+
+<TextView android:id="@+id/SignupTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Sign Up"
+    android:textColor="@color/black"
+    android:textSize="30sp"
+    android:layout_margin="20sp"
+    android:gravity="center"
+    android:textStyle="bold"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+
+    <!--Username input-->
+<com.google.android.material.textfield.TextInputLayout
+android:id="@+id/SignupUsername"
+style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+android:layout_width="290sp"
+android:layout_height="wrap_content"
+android:layout_below="@+id/LoginTitle"
+android:layout_centerHorizontal="true"
+android:layout_marginTop="100sp"
+android:hint="username"
+app:counterEnabled="true"
+app:counterMaxLength="16"
+app:endIconMode="clear_text"
+app:errorEnabled="true"
+app:errorIconDrawable="@drawable/baseline_error_24"
+app:helperText=" "
+app:helperTextTextColor="#B00020"
+tools:ignore="TextSizeCheck">
+
+<com.google.android.material.textfield.TextInputEditText
+    android:id="@+id/SignupUsernameEdit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="TextContrastCheck" />
+</com.google.android.material.textfield.TextInputLayout>
+
+    <!--Password input-->
+<com.google.android.material.textfield.TextInputLayout
+android:id="@+id/SignupPassword"
+style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+android:layout_width="290sp"
+android:layout_height="wrap_content"
+android:layout_below="@+id/SignupUsername"
+android:layout_centerHorizontal="true"
+android:layout_marginTop="20sp"
+android:hint="password"
+app:counterEnabled="true"
+app:counterMaxLength="16"
+app:endIconMode="password_toggle"
+app:errorEnabled="true"
+app:errorIconDrawable="@drawable/baseline_error_24"
+app:helperText=" "
+app:helperTextTextColor="#B00020"
+tools:ignore="TextSizeCheck">
+
+<com.google.android.material.textfield.TextInputEditText
+    android:id="@+id/SignupPasswordEdit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:inputType="textPassword"
+    tools:ignore="TextContrastCheck" />
+</com.google.android.material.textfield.TextInputLayout>
+
+    <!--Submit button-->
+<com.google.android.material.button.MaterialButton
+android:id="@+id/SignupSubmitbtn"
+android:layout_width="175sp"
+android:layout_height="65sp"
+android:layout_below="@id/SignupPassword"
+android:layout_marginTop="25sp"
+android:backgroundTint="#d00020"
+android:layout_centerHorizontal="true"
+android:textColor="@color/black"
+android:textStyle="bold"
+android:text="submit"
+android:textSize="18sp"
+    />
+    <!--Signgup page link-->
+<TextView
+android:id="@+id/SignupYesAccount"
+android:layout_width="245sp"
+android:layout_height="wrap_content"
+android:layout_below="@id/SignupSubmitbtn"
+android:layout_centerHorizontal="true"
+android:layout_marginTop="30sp"
+android:gravity="center"
+android:text="Already have an account? Log in here"
+android:textColor="@color/black"
+android:textSize="22sp"
+android:textStyle="bold"
+tools:ignore="TextSizeCheck"
+android:onClick="onClick"
+android:clickable="true"
+    />
+
+
+
+    <!--Bottom text Bar-->
+<TextView
+android:id="@+id/btmText"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:text="Plymouth Tennis Club"
+android:textColor="@color/black"
+android:textSize="30sp"
+android:gravity="center"
+android:layout_margin="25sp"
+android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
