@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "719226108623",
+    "project_id": "tennislogins",
+    "storage_bucket": "tennislogins.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:719226108623:android:cc88e6691fddabddfe55ba",
+        "android_client_info": {
+          "package_name": "com.example.pleasegodwhy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhkSPTGQztoDJLkcbQQGtEWsFcDx2FO5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,12 +8,20 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.ref.Reference;
+
 
 public class MainActivity extends AppCompatActivity {
 
     TextView SwapBtn;
     Button LoginSubBtn;
     String usernameSTR, passwordSTR;
+    DatabaseReference DatabaseReference;
+
 
 
     @Override
@@ -42,6 +50,21 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, passwordSTR, Toast.LENGTH_SHORT).show();
             Toast.makeText(MainActivity.this, usernameSTR, Toast.LENGTH_SHORT).show();
 
+
+            DatabaseReference = FirebaseDatabase.getInstance().getReference("user");
+            DatabaseReference.child(usernameSTR).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()){
+                    if (task.getResult().exists()) {
+                        DataSnapshot DataSnapshot = task.getResult();
+                        String dsuser = String.valueOf(DataSnapshot.child("username").getValue());
+                    }
+                }
+            });
+
+
         });
+
     }
+
+
 }
