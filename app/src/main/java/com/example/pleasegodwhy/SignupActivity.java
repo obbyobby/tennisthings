@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +20,9 @@ import java.lang.ref.Reference;
 public class SignupActivity extends AppCompatActivity {
 
     TextView ToLoginBtn;
-    DatabaseReference DatabaseReference;
+    DatabaseReference databaseReference;
     String SignupUsername, SignupPassword, SignupEmail, tempPhone;
-    int phoneNumber;
+    int phoneNumber, accountNo;
     Button SignupSubBtn;
 
 
@@ -44,9 +45,9 @@ public class SignupActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         });
+
         //Once the user click submit
         SignupSubBtn.setOnClickListener(view -> {
-            //gets both inputs
             SignupUsername = username.getText().toString();
             SignupPassword = password.getText().toString();
             SignupEmail = email.getText().toString();
@@ -54,15 +55,17 @@ public class SignupActivity extends AppCompatActivity {
 
             phoneNumber  = Integer.parseInt(tempPhone);
 
-            // Write a message to the database
             firebaselogin user = new firebaselogin( true,  phoneNumber, SignupEmail,  SignupPassword,  SignupUsername);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference = database.getReference("user");
-            DatabaseReference.child(SignupUsername).setValue(user).addOnCompleteListener(task -> {
-                Intent i = new Intent(SignupActivity.this, Home.class);
-                startActivity(i);
-                finish();
-
+            databaseReference = database.getReference("users");
+            databaseReference.child(SignupUsername).setValue(user).addOnCompleteListener(task -> {
+               if( task.isSuccessful()) {
+                    Intent i = new Intent(SignupActivity.this, Home.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(SignupActivity.this, "signup failed", Toast.LENGTH_SHORT).show();
+                }
             });
 
 

@@ -12,22 +12,21 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.lang.ref.Reference;
-
 
 public class MainActivity extends AppCompatActivity {
-
     TextView SwapBtn;
     Button LoginSubBtn;
     String usernameSTR, passwordSTR;
-    DatabaseReference DatabaseReference;
-
+    DatabaseReference databaseReference;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         setContentView(R.layout.activity_main); //Adds Styling
+
+
 
         TextView username = findViewById(R.id.loginUsernameEdit);
         TextView password = findViewById(R.id.loginPasswordEdit);
@@ -38,33 +37,36 @@ public class MainActivity extends AppCompatActivity {
         SwapBtn.setOnClickListener(view -> {
             Intent i = new Intent(getApplicationContext(), SignupActivity.class);
             startActivity(i);
-
-
         });
+
         //Once the user click submit
         LoginSubBtn.setOnClickListener(view -> {
             //gets both inputs
             passwordSTR = password.getText().toString();
             usernameSTR = username.getText().toString();
 
-            Toast.makeText(MainActivity.this, passwordSTR, Toast.LENGTH_SHORT).show();
-            Toast.makeText(MainActivity.this, usernameSTR, Toast.LENGTH_SHORT).show();
-
-
-            DatabaseReference = FirebaseDatabase.getInstance().getReference("user");
-            DatabaseReference.child(usernameSTR).get().addOnCompleteListener(task -> {
+            databaseReference = FirebaseDatabase.getInstance().getReference("users");
+            databaseReference.child(usernameSTR).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()){
                     if (task.getResult().exists()) {
-                        DataSnapshot DataSnapshot = task.getResult();
-                        String dsuser = String.valueOf(DataSnapshot.child("username").getValue());
+                        DataSnapshot dataSnapshot = task.getResult();
+                        String dsuser = String.valueOf(dataSnapshot.child("username").getValue());
+                        String dsPassword = String.valueOf(dataSnapshot.child("password").getValue());
+
+                        if (dsuser != null && dsPassword != null) {
+                            if (dsPassword.equals(passwordSTR) && dsuser.equals(usernameSTR)) {
+                                Intent i = new Intent(MainActivity.this, Home.class);
+                                startActivity(i);
+                                finish();
+                            } else {
+                                Toast.makeText(MainActivity.this, "Login details incorrect", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Please fill in the information", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
-
-
         });
-
     }
-
-
 }

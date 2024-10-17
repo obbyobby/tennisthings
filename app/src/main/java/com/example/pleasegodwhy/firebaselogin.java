@@ -2,57 +2,57 @@ package com.example.pleasegodwhy;
 
 public class firebaselogin {
 
-    String username,password, email;
-    int phoneNumber;
-    boolean notifications;
+    String Username,Password, Email;
+    int PhoneNumber;
+    boolean Notifications;
 
     public firebaselogin(boolean notifications, int phoneNumber, String email, String password, String username) {
-        this.notifications = notifications;
-        this.phoneNumber = phoneNumber;
+        Notifications = notifications;
+        PhoneNumber = phoneNumber;
 
-        this.email = email;
-        this.password = password;
-        this.username = username;
+        Email = email;
+        Password = password;
+        Username = username;
     }
 
     public String getUsername() {
-        return username;
+        return Username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        Username = username;
     }
 
     public String getPassword() {
-        return password;
+        return Password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        Password = password;
     }
 
     public String getEmail() {
-        return email;
+        return Email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        Email = email;
     }
 
 
     public int getPhoneNumber() {
-        return phoneNumber;
+        return PhoneNumber;
     }
 
     public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        PhoneNumber = phoneNumber;
     }
 
     public boolean isNotifications() {
-        return notifications;
+        return Notifications;
     }
 
     public void setNotifications(boolean notifications) {
-        this.notifications = notifications;
+        Notifications = notifications;
     }
 }

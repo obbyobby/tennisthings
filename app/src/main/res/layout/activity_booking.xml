@@ -8,92 +8,92 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+
     <TextView
-        android:id="@+id/HomeTitle"
+        android:id="@+id/makeBookingTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="Make a booking"
         android:textColor="@color/red"
         android:textSize="30sp"
-        android:layout_margin="30sp"
+        android:layout_margin="20sp"
         android:gravity="center"
         android:textStyle="bold"/>
 
     <TextView
-        android:id="@+id/HomeText"
+        android:id="@+id/courtTypeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="HI! Welcome to Plymouth tennis club’s booking app. Here you can book various courts and change bookings!"
+        android:layout_marginTop="25sp"
+        android:text="Please select the court type you wish to book:"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:gravity="center"
-        android:layout_below="@id/HomeTitle"
+        android:layout_below="@id/makeBookingTitle"
         android:layout_marginHorizontal="50sp"
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/profileBtn"
+    <Spinner
+        android:id="@+id/courtTypeSpinner"
+        android:spinnerMode="dropdown"
         android:layout_width="175sp"
         android:layout_height="65sp"
-        android:layout_below="@id/HomeText"
         android:layout_marginTop="25sp"
+        android:layout_below="@id/courtTypeText"
         android:backgroundTint="#d00020"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Profile"
+        android:text="Court types"
         android:textSize="18sp"
-        android:onClick="onClick"
         android:clickable="true"
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/BookBtn"
+
+
+    <TextView
+        android:id="@+id/bookingDateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select the time you wish to book:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_below="@id/courtTypeSpinner"
+        android:layout_marginHorizontal="50sp"
+        />
+
+    <Spinner
+        android:id="@+id/courtDateSpinner"
+        android:spinnerMode="dropdown"
         android:layout_width="175sp"
         android:layout_height="65sp"
-        android:layout_below="@id/profileBtn"
-        android:layout_marginTop="25sp"
+        android:layout_below="@id/bookingDateText"
         android:backgroundTint="#d00020"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Book a court"
+        android:text="booking times"
         android:textSize="18sp"
-        android:onClick="onClick"
         android:clickable="true"
         />
 
+    <!--Submit button-->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/ChangeBtn"
+        android:id="@+id/bookSubbtn"
         android:layout_width="175sp"
         android:layout_height="65sp"
-        android:layout_below="@id/BookBtn"
+        android:layout_below="@id/courtDateSpinner"
         android:layout_marginTop="25sp"
         android:backgroundTint="#d00020"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textStyle="bold"
-        android:text="Change bookings"
+        android:text="Book court"
         android:textSize="18sp"
-        android:onClick="onClick"
-        android:clickable="true"
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/PastBookings"
-        android:layout_width="175sp"
-        android:layout_height="65sp"
-        android:layout_below="@id/ChangeBtn"
-        android:layout_marginTop="25sp"
-        android:backgroundTint="#d00020"
-        android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:text="Past bookings"
-        android:textSize="18sp"
-        android:onClick="onClick"
-        android:clickable="true"
-        />
+
 
     <!--Bottom text Bar-->
     <TextView
