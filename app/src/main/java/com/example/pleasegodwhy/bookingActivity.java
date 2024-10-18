@@ -38,7 +38,7 @@ public class bookingActivity extends AppCompatActivity {
 
         selectedDateTimeTextView = findViewById(R.id.selectedDateTimeTextView);
 
-        fetchBookings();
+      //  fetchBookings();
         final String[] selectedType = new String[1];
         final String[] selectedDate = new String[1];
         final String[] selectedLength = new String[1];
@@ -47,7 +47,15 @@ public class bookingActivity extends AppCompatActivity {
         String currentEmail = UseSingleton.getInstance().getEmail();
         String currentPhone = UseSingleton.getInstance().getPhoneNumber();
         String currentUser = UseSingleton.getInstance().getUsername();
+        String accountNo = String.valueOf(UseSingleton.getInstance().getaccountNo());
+        boolean[] courtsAvailable = new boolean[10]; // 10 courts
+        String[] courtTypes = {"Artificial Grass", "Hard Court", "Grass Court"};
 
+
+        // Initialize all courts as available
+        for (int i = 0; i < courtsAvailable.length; i++) {
+            courtsAvailable[i] = true; // true means available
+        }
         // Spinner for court type
         Spinner typeSpinner = findViewById(R.id.courtTypeSpinner);
         String[] options = {"fake grass", "hard", "real grass"};
@@ -67,7 +75,8 @@ public class bookingActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         // Current date and time setup
@@ -120,7 +129,8 @@ public class bookingActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         Button submitButton = findViewById(R.id.bookSubbtn);
@@ -131,7 +141,7 @@ public class bookingActivity extends AppCompatActivity {
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 try {
-                    // Parse selected date
+                    // Parse data
                     Date selectedDateTime = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse(selectedDate[0]);
                     String bookingDateTime = dateFormat.format(selectedDateTime);
                     newBooking.setDate(bookingDateTime);
@@ -139,6 +149,16 @@ public class bookingActivity extends AppCompatActivity {
                     newBooking.setEmail(currentEmail);
                     newBooking.setPhoneNumber(currentPhone);
                     newBooking.setMemberName(currentUser);
+                    newBooking.setaccountNo(String.valueOf(accountNo));
+                    ;
+
+                    int assignedCourtNumber = assignCourt(courtsAvailable);
+                    if (assignedCourtNumber != -1) {
+                        checkCourtAvailability(assignedCourtNumber, bookingDateTime, newBooking);
+                        newBooking.setCourtNo(String.valueOf(assignedCourtNumber)); // Set the assigned court number to the booking
+                    } else {
+                        Toast.makeText(this, "No available courts at the moment", Toast.LENGTH_SHORT).show();
+                    }
 
                     // Make the API call here
                     ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
@@ -177,42 +197,103 @@ public class bookingActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void fetchBookings() {
-        ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
-        Call<List<Booking>> call = apiService.getBookings();
-        call.enqueue(new Callback<List<Booking>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<Booking>> call, @NonNull Response<List<Booking>> response) {
-                Log.d("BookingActivity", "Response Code: " + response.code());
-                Log.d("BookingActivity", "Response Body: " + response.body());
-
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Booking> bookings = response.body();
-                    if (bookings.isEmpty()) {
-                        Toast.makeText(bookingActivity.this, "No bookings found", Toast.LENGTH_SHORT).show();
+        private void checkCourtAvailability(int courtNumber, String bookingDateTime, Booking newBooking) {
+            ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+            Call<List<Booking>> call = apiService.getBookingsForCourtAndTime(courtNumber, bookingDateTime);
+            call.enqueue(new Callback<List<Booking>>() {
+                @Override
+                public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
+                    if (response.isSuccessful() && response.body() != null && response.body().isEmpty()) {
+                        // No bookings for this court and time, proceed with the booking
+                        newBooking.setCourtNo(String.valueOf(courtNumber)); // Use court number from assignCourt
+                        makeBooking(newBooking);
                     } else {
-                        for (Booking booking : bookings) {
-                            String bookingNo = booking.getBookingNo();
-                            Log.d("BookingActivity", "Booking No: " + (bookingNo != null ? bookingNo : "No booking number"));
-                            Log.d("BookingActivity", "Customer Name: " + booking.getuserName());
-                            Log.d("BookingActivity", "Date: " + booking.getDate());
-                            Log.d("BookingActivity", "Court Type: " + booking.getCourtType());
-                            Log.d("BookingActivity", "Court No: " + booking.getCourtNo());
-                            Log.d("BookingActivity", "Day of Week: " + booking.getDayOfWeek());
-                            Log.d("BookingActivity", "Duration: " + booking.getDuration());
-                        }
-                    }
-                } else {
-                    Toast.makeText(bookingActivity.this, "Failed to fetch bookings", Toast.LENGTH_SHORT).show();
-                }
-            }
+                        // Court is already booked
+                        Toast.makeText(bookingActivity.this, "Court is already booked at this time", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onFailure(Call<List<Booking>> call, Throwable t) {
-                Toast.makeText(bookingActivity.this, "API call failed", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(Call<List<Booking>> call, Throwable t) {
+                    // Handle failure scenario here
+                    Toast.makeText(bookingActivity.this, "Failed to check court availability: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("BookingActivity", "API call failed", t);
+                }
+            });
+        }
+
+                private void makeBooking(Booking newBooking) {
+                    ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+                    Call<Booking> call = apiService.createBooking(newBooking);
+                    call.enqueue(new Callback<Booking>() {
+                        @Override
+                        public void onResponse(Call<Booking> call, Response<Booking> response) {
+                            if (response.isSuccessful() && response.body() != null) {
+                                String bookingNumber = response.body().getBookingNo();
+                                Toast.makeText(bookingActivity.this, "Booking Successful! Number: " + bookingNumber, Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(bookingActivity.this, Home.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(bookingActivity.this, "Failed to create booking", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<Booking> call, Throwable t) {
+                            // Handle failure scenario here
+                            Toast.makeText(bookingActivity.this, "Booking API call failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                            Log.e("BookingActivity", "API call failed", t);
+                        }
+
+
+                        private void fetchBookings() {
+                            ApiService apiService = RetrofitClient.getClient().create(ApiService.class);
+                            Call<List<Booking>> call = apiService.getBookings();
+                            call.enqueue(new Callback<List<Booking>>() {
+                                @Override
+                                public void onResponse(@NonNull Call<List<Booking>> call, @NonNull Response<List<Booking>> response) {
+                                    Log.d("BookingActivity", "Response Code: " + response.code());
+                                    Log.d("BookingActivity", "Response Body: " + response.body());
+
+                                    if (response.isSuccessful() && response.body() != null) {
+                                        List<Booking> bookings = response.body();
+                                        if (bookings.isEmpty()) {
+                                            Toast.makeText(bookingActivity.this, "No bookings found", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            for (Booking booking : bookings) {
+                                                String bookingNo = booking.getBookingNo();
+                                                Log.d("BookingActivity", "Booking No: " + (bookingNo != null ? bookingNo : "No booking number"));
+                                                Log.d("BookingActivity", "Customer Name: " + booking.getMemberName());
+                                                Log.d("BookingActivity", "Date: " + booking.getDate());
+                                                Log.d("BookingActivity", "Court Type: " + booking.getCourtType());
+                                                Log.d("BookingActivity", "Court No: " + booking.getCourtNo());
+                                                Log.d("BookingActivity", "Day of Week: " + booking.getDayOfWeek());
+                                                Log.d("BookingActivity", "Duration: " + booking.getDuration());
+                                                Log.d("BookingActivity", "AccountNo: " + booking.getaccountNo());
+                                            }
+                                        }
+                                    } else {
+                                        Toast.makeText(bookingActivity.this, "Failed to fetch bookings", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<List<Booking>> call, Throwable t) {
+                                    Toast.makeText(bookingActivity.this, "API call failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+
+                    });
+                }
+    private int assignCourt(boolean[] courtsAvailable) {
+        for (int i = 0; i < courtsAvailable.length; i++) {
+            if (courtsAvailable[i]) { // If the court is available
+                courtsAvailable[i] = false; // Mark as booked
+                return i + 1; // Court numbers are 1-indexed
             }
-        });
+        }
+        return -1; // No available courts
     }
 
 

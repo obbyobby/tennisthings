@@ -2,28 +2,41 @@ package com.example.pleasegodwhy;
 
 public class Booking {
 
-    int  weekday;
+    int weekday;
     String memberName, email, phoneNumber, courtType, courtNo, date, duration, bookingNo;
-
+    String accountNo; // Added accountNum field
 
     // Constructor
     public Booking() {
+        // Initialize all fields
         this.bookingNo = bookingNo;
         this.memberName = memberName;
         this.date = date;
         this.courtType = courtType;
         this.duration = duration;
+        this.accountNo = accountNo; // Initialize accountNum
     }
 
-
-
+    // Overloaded constructor to include accountNum
+    public Booking(String bookingNo, String memberName, String email, String phoneNumber, String courtType,
+                   String courtNo, String date, String duration, String accountNo) {
+        this.bookingNo = bookingNo;
+        this.memberName = memberName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.courtType = courtType;
+        this.courtNo = courtNo;
+        this.date = date;
+        this.duration = duration;
+        this.accountNo = accountNo; // Initialize accountNum
+    }
 
     // Getters and Setters
     public String getBookingNo() { return bookingNo; }
     public void setBookingNo(String bookingNo) { this.bookingNo = bookingNo; }
 
-    public String getuserName() { return memberName; }
-    public void setMemberName(String userName) { this.memberName = userName; }
+    public String getMemberName() { return memberName; }
+    public void setMemberName(String memberName) { this.memberName = memberName; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
@@ -46,16 +59,16 @@ public class Booking {
     public String getDuration() { return duration; }
     public void setDuration(String duration) { this.duration = duration; }
 
+    public String getaccountNo() { return accountNo; } // Getter for accountNum
+    public void setaccountNo(String accountNo) { this.accountNo = accountNo; } // Setter for accountNum
+
     // Override the toString() method
     @Override
     public String toString() {
         return "Booking{" +
-                "bookingNo=" + bookingNo +
-                ", customerName='" + memberName + '\'' +
+                "bookingNo='" + bookingNo + '\'' +
+                ", memberName='" + memberName + '\'' +
                 ", bookingDate='" + date + '\'' +
-
-
                 '}';
     }
-
 }

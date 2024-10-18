@@ -8,15 +8,12 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.lang.ref.Reference;
-import java.util.Random;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.DataSnapshot;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -26,14 +23,11 @@ public class SignupActivity extends AppCompatActivity {
     int phoneNumber, accountNo;
     Button SignupSubBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_signup);
-
-
 
         TextView username = findViewById(R.id.SignupUsernameEdit);
         TextView password = findViewById(R.id.SignupPasswordEdit);
@@ -47,43 +41,48 @@ public class SignupActivity extends AppCompatActivity {
             startActivity(i);
         });
 
-        //Once the user click submit
-        SignupSubBtn.setOnClickListener(view -> {
-            SignupUsername = username.getText().toString();
-            SignupPassword = password.getText().toString();
-            SignupEmail = email.getText().toString();
-            tempPhone= phone.getText().toString();
+        // Fetch current user count
+        databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Count the number of children under "users"
+                int userCount = (int) dataSnapshot.getChildrenCount();
+                accountNo = userCount + 1; // Increment for the new account number
 
-            phoneNumber  = Integer.parseInt(tempPhone);
+                // Set up signup button listener after fetching account number
+                SignupSubBtn.setOnClickListener(view -> {
+                    SignupUsername = username.getText().toString();
+                    SignupPassword = password.getText().toString();
+                    SignupEmail = email.getText().toString();
+                    tempPhone = phone.getText().toString();
 
+                    phoneNumber = Integer.parseInt(tempPhone);
 
-            firebaselogin user = new firebaselogin( true,  phoneNumber, SignupEmail,  SignupPassword,  SignupUsername);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            databaseReference = database.getReference("users");
-            databaseReference.child(SignupUsername).setValue(user).addOnCompleteListener(task -> {
-               if( task.isSuccessful()) {
+                    firebaselogin user = new firebaselogin(true, phoneNumber, SignupEmail, SignupPassword, SignupUsername, accountNo);
+                    user.setaccountNo(accountNo);
+                    databaseReference.child(SignupUsername).setValue(user).addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            UseSingleton.getInstance().setUsername(SignupUsername);
+                            UseSingleton.getInstance().setPhoneNumber(tempPhone);
+                            UseSingleton.getInstance().setEmail(SignupEmail);
+                            UseSingleton.getInstance().setaccountNo(accountNo);
 
+                            Intent i = new Intent(SignupActivity.this, Home.class);
+                            startActivity(i);
+                            finish();
+                        } else {
+                            Toast.makeText(SignupActivity.this, "Signup failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                });
+            }
 
-
-                   UseSingleton.getInstance().setUsername(SignupUsername);
-                   UseSingleton.getInstance().setPhoneNumber(tempPhone);
-                   UseSingleton.getInstance().setEmail(SignupEmail);
-
-
-                    Intent i = new Intent(SignupActivity.this, Home.class);
-                    startActivity(i);
-                    finish();
-                } else {
-                    Toast.makeText(SignupActivity.this, "signup failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-
-
-
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors.
+                Toast.makeText(SignupActivity.this, "Error fetching user count", Toast.LENGTH_SHORT).show();
+            }
         });
     }
-
-
 }

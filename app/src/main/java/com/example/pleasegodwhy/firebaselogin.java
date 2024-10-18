@@ -2,17 +2,18 @@ package com.example.pleasegodwhy;
 
 public class firebaselogin {
 
-    String Username,Password, Email;
-    int PhoneNumber;
+    String Username, Password, Email;
+    int PhoneNumber, accountNo; // Added AccountNo field
     boolean Notifications;
 
-    public firebaselogin(boolean notifications, int phoneNumber, String email, String password, String username) {
+    // Updated constructor to include AccountNo
+    public firebaselogin(boolean notifications, int phoneNumber, String email, String password, String username, int accountNo) {
         Notifications = notifications;
         PhoneNumber = phoneNumber;
-
         Email = email;
         Password = password;
         Username = username;
+        accountNo = accountNo; // Initialize AccountNo
     }
 
     public String getUsername() {
@@ -39,7 +40,6 @@ public class firebaselogin {
         Email = email;
     }
 
-
     public int getPhoneNumber() {
         return PhoneNumber;
     }
@@ -54,5 +54,14 @@ public class firebaselogin {
 
     public void setNotifications(boolean notifications) {
         Notifications = notifications;
+    }
+
+    // Added getter and setter for AccountNo
+    public int getaccountNo() {
+        return accountNo;
+    }
+
+    public void setaccountNo(int accountNo) {
+        accountNo = accountNo;
     }
 }

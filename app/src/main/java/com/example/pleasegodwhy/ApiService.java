@@ -20,8 +20,15 @@ public interface ApiService {
     @GET("/WeatherForecast")
     Call<List<WeatherForecast>> getWeatherForecast();
 
-    @GET("bookings/latestBookingNumber")
-    Call<latestBookingNumber.LatestBookingNumberResponse> getLatestBookingNumber();
+
+    @GET("bookings/court/{courtNumber}/time/{bookingDateTime}")
+    Call<List<Booking>> getBookingsForCourtAndTime(
+            @Path("courtNumber") int courtNumber,
+            @Path("bookingDateTime") String bookingDateTime
+    );
+
+    //@GET("bookings/latestBookingNumber")
+    //Call<latestBookingNumber.LatestBookingNumberResponse> getLatestBookingNumber();
 
 
 }

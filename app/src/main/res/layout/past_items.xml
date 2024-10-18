@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/ProfileTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Past bookings"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:layout_margin="20sp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+
+    <TextView
+        android:id="@+id/bookingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Booking Date"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/courtType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Court Type"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/dayOfWeek"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Day of week"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration"
+        android:textSize="14sp"/>
+</LinearLayout>

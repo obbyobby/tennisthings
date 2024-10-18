@@ -5,7 +5,7 @@ public class UseSingleton {
     private static UseSingleton instance;
     private String username;
     private String phoneNumber;
-    private String accountNo;
+    private int accountNo;
     private String email;
 
     private UseSingleton(){}
@@ -34,11 +34,11 @@ public class UseSingleton {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getAccountNo(){
+    public int getaccountNo(){
         return accountNo;
     }
 
-    public void setAccountNo(String accountNo){
+    public void setaccountNo(int accountNo){
         this.accountNo = accountNo;
     }
 
