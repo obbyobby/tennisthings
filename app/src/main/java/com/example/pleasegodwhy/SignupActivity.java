@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.ref.Reference;
+import java.util.Random;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -55,11 +56,20 @@ public class SignupActivity extends AppCompatActivity {
 
             phoneNumber  = Integer.parseInt(tempPhone);
 
+
             firebaselogin user = new firebaselogin( true,  phoneNumber, SignupEmail,  SignupPassword,  SignupUsername);
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             databaseReference = database.getReference("users");
             databaseReference.child(SignupUsername).setValue(user).addOnCompleteListener(task -> {
                if( task.isSuccessful()) {
+
+
+
+                   UseSingleton.getInstance().setUsername(SignupUsername);
+                   UseSingleton.getInstance().setPhoneNumber(tempPhone);
+                   UseSingleton.getInstance().setEmail(SignupEmail);
+
+
                     Intent i = new Intent(SignupActivity.this, Home.class);
                     startActivity(i);
                     finish();
@@ -70,6 +80,10 @@ public class SignupActivity extends AppCompatActivity {
 
 
 
+
+
         });
     }
+
+
 }

@@ -8,15 +8,20 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @GET("Bookings") // Remove the leading /
+    @GET("Bookings")
     Call<List<Booking>> getBookings();
 
-    @POST("Bookings") // Remove the leading /
+    @POST("Bookings")
     Call<Booking> createBooking(@Body Booking booking);
 
-    @GET("Bookings/{bookingNo}") // Remove the leading /
+    @GET("Bookings/{bookingNo}")
     Call<Booking> getBookingById(@Path("bookingNo") int bookingNo);
 
-    @GET("/WeatherForecast") // Keep this as is if it's valid
+    @GET("/WeatherForecast")
     Call<List<WeatherForecast>> getWeatherForecast();
+
+    @GET("bookings/latestBookingNumber")
+    Call<latestBookingNumber.LatestBookingNumberResponse> getLatestBookingNumber();
+
+
 }

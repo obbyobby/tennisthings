@@ -52,9 +52,16 @@ public class MainActivity extends AppCompatActivity {
                         DataSnapshot dataSnapshot = task.getResult();
                         String dsuser = String.valueOf(dataSnapshot.child("username").getValue());
                         String dsPassword = String.valueOf(dataSnapshot.child("password").getValue());
+                        String dsPhone = String.valueOf(dataSnapshot.child("phoneNumber").getValue());
+                        String dsEmail = String.valueOf(dataSnapshot.child("email").getValue());
 
                         if (dsuser != null && dsPassword != null) {
                             if (dsPassword.equals(passwordSTR) && dsuser.equals(usernameSTR)) {
+
+
+                                UseSingleton.getInstance().setUsername(usernameSTR);
+                                UseSingleton.getInstance().setPhoneNumber(dsPhone);
+                                UseSingleton.getInstance().setEmail(dsEmail);
                                 Intent i = new Intent(MainActivity.this, Home.class);
                                 startActivity(i);
                                 finish();

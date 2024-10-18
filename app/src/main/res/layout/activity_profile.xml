@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,4 +7,86 @@
     android:layout_height="match_parent"
     tools:context=".profileActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/ProfileTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:layout_margin="20sp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/textViewCurrentEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ProfileTitle"
+        android:gravity="center"
+        android:layout_margin="20sp"
+        android:text="Current Email:" />
+
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_below="@id/textViewCurrentEmail"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/editTextNewEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewEmail"
+        android:gravity="center"
+        android:hint="New Email" />
+
+    <TextView
+        android:id="@+id/textViewCurrentPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNewEmail"
+        android:gravity="center"
+        android:layout_margin="20sp"
+        android:text="Current Phone:" />
+
+    <TextView
+        android:id="@+id/textViewPhone"
+        android:layout_below="@id/textViewCurrentPhone"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/editTextNewPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewPhone"
+        android:gravity="center"
+        android:hint="New Phone Number" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNewPhone"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#d00020"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Save Changes" />
+
+
+
+    <Button
+        android:id="@+id/homeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonSave"
+        android:backgroundTint="#d00020"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Home" />
+</RelativeLayout>

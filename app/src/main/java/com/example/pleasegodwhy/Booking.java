@@ -1,15 +1,5 @@
 package com.example.pleasegodwhy;
 
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import java.util.List;
-
 public class Booking {
 
     int  weekday;
@@ -17,11 +7,15 @@ public class Booking {
 
 
     // Constructor
-    public Booking(String bookingNo, String userName, String bookingDate) {
+    public Booking() {
         this.bookingNo = bookingNo;
         this.memberName = memberName;
-        this.date = bookingDate;
+        this.date = date;
+        this.courtType = courtType;
+        this.duration = duration;
     }
+
+
 
 
     // Getters and Setters
@@ -60,7 +54,7 @@ public class Booking {
                 ", customerName='" + memberName + '\'' +
                 ", bookingDate='" + date + '\'' +
 
-                // Include other fields here
+
                 '}';
     }
 

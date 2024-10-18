@@ -63,12 +63,54 @@
         android:layout_marginHorizontal="50sp"
         />
 
-    <Spinner
-        android:id="@+id/courtDateSpinner"
-        android:spinnerMode="dropdown"
+    <!--button to open datetime picker-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bookDatebtn"
         android:layout_width="175sp"
         android:layout_height="65sp"
         android:layout_below="@id/bookingDateText"
+        android:layout_marginTop="25sp"
+        android:backgroundTint="#d00020"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Select date and time"
+        android:textSize="18sp"
+        />
+
+
+    <!-- Optional TextView to show selected Date and Time -->
+    <TextView
+        android:id="@+id/selectedDateTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No date and time selected"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/bookDatebtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/courtLengthText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select how long you wish to use the court for:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_below="@id/selectedDateTimeTextView"
+        android:layout_marginHorizontal="50sp"
+        />
+
+
+
+    <Spinner
+        android:id="@+id/courtLengthSpinner"
+        android:spinnerMode="dropdown"
+        android:layout_width="175sp"
+        android:layout_height="65sp"
+        android:layout_below="@id/courtLengthText"
         android:backgroundTint="#d00020"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
@@ -83,7 +125,7 @@
         android:id="@+id/bookSubbtn"
         android:layout_width="175sp"
         android:layout_height="65sp"
-        android:layout_below="@id/courtDateSpinner"
+        android:layout_below="@id/courtLengthSpinner"
         android:layout_marginTop="25sp"
         android:backgroundTint="#d00020"
         android:layout_centerHorizontal="true"
