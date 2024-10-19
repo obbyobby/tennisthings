@@ -48,7 +48,8 @@ The Tennis Club Booking App allows club members to book tennis courts up to 48 h
 
   ## Credits and Achnowledgements
 
-  - Firebase Realtime Database: Used for user authentication, data storage, and real-time data synchronization. Firebase is a product of Google LLC and is compliant with GDPR standards for secure data handling. For more information, visit the Firebase website.
+  - Firebase Realtime Database: Used for user authentication, data storage, and real-time data synchronization. Firebase is a product of Google LLC and is compliant with GDPR standards for secure data handling. For more information, visit the [Firebase website](https://firebase.google.com/)
+.
 
   
 
