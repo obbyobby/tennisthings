@@ -19,13 +19,44 @@
         android:textStyle="bold"
         xmlns:android="http://schemas.android.com/apk/res/android" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/PastTitle"
-        android:id="@+id/recyclerView"
+
+    <!-- ListView to display bookings -->
+    <ListView
+        android:id="@+id/bookingListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"/>
+        android:layout_height="200dp"
+        android:layout_below="@id/PastTitle"
+        android:layout_marginHorizontal="16dp"
+        android:dividerHeight="1dp"
+        android:divider="@android:color/darker_gray"/>
+
+    <!--Submit button-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/homeBtn"
+        android:layout_width="175sp"
+        android:layout_height="65sp"
+        android:layout_below="@id/bookingListView"
+        android:layout_marginTop="25sp"
+        android:backgroundTint="#d00020"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Home"
+        android:textSize="18sp"
+        />
 
 
+
+    <!--Bottom text Bar-->
+    <TextView
+        android:id="@+id/btmText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Plymouth Tennis Club"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_margin="25sp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

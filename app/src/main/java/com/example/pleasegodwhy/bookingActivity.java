@@ -203,15 +203,15 @@ public class bookingActivity extends AppCompatActivity {
             call.enqueue(new Callback<List<Booking>>() {
                 @Override
                 public void onResponse(Call<List<Booking>> call, Response<List<Booking>> response) {
-                    if (response.isSuccessful() && response.body() != null && response.body().isEmpty()) {
+                    //if (response.isSuccessful() && response.body() != null && response.body().isEmpty()) {
                         // No bookings for this court and time, proceed with the booking
                         newBooking.setCourtNo(String.valueOf(courtNumber)); // Use court number from assignCourt
                         makeBooking(newBooking);
-                    } else {
+                   // } else {
                         // Court is already booked
-                        Toast.makeText(bookingActivity.this, "Court is already booked at this time", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(bookingActivity.this, "Court is already booked at this time", Toast.LENGTH_SHORT).show();
 
-                    }
+                   // }
                 }
                 @Override
                 public void onFailure(Call<List<Booking>> call, Throwable t) {

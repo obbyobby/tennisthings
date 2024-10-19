@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editActivity">
+
+
+
+    <TextView
+        android:id="@+id/EditTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit your booking"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:layout_margin="30sp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/editTypeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25sp"
+        android:text="Please select the court type you wish to book:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_below="@id/EditTitle"
+        android:layout_marginHorizontal="50sp"
+        />
+
+    <Spinner
+        android:id="@+id/editTypeSpinner"
+        android:spinnerMode="dropdown"
+        android:layout_width="175sp"
+        android:layout_height="65sp"
+        android:layout_marginTop="25sp"
+        android:layout_below="@id/editTypeText"
+        android:backgroundTint="#d00020"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Court types"
+        android:textSize="18sp"
+        android:clickable="true"
+        />
+
+
+
+    <TextView
+        android:id="@+id/editDateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select the time you wish to book:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_below="@id/editTypeSpinner"
+        android:layout_marginHorizontal="50sp"
+        />
+
+    <!--button to open datetime picker-->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/editDatebtn"
+        android:layout_width="175sp"
+        android:layout_height="65sp"
+        android:layout_below="@id/editDateText"
+        android:layout_marginTop="25sp"
+        android:backgroundTint="#d00020"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="Select date and time"
+        android:textSize="18sp"
+        />
+
+
+    <!-- Optional TextView to show selected Date and Time -->
+    <TextView
+        android:id="@+id/editDateTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No date and time selected"
+        android:textSize="16sp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@id/editDatebtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/editLengthText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select how long you wish to use the court for:"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_below="@id/editDateTimeTextView"
+        android:layout_marginHorizontal="50sp"
+        />
+
+
+
+    <Spinner
+        android:id="@+id/editLengthSpinner"
+        android:spinnerMode="dropdown"
+        android:layout_width="175sp"
+        android:layout_height="65sp"
+        android:layout_below="@id/editLengthText"
+        android:backgroundTint="#d00020"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:text="booking times"
+        android:textSize="18sp"
+        android:clickable="true"
+        />
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/editSubBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editLengthSpinner"
+        android:layout_marginTop="24dp"
+        android:text="Submit"
+        android:layout_alignParentStart="true"/>
+
+    <!-- Cancel Button -->
+    <Button
+        android:id="@+id/editCancelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editLengthSpinner"
+        android:layout_marginTop="24dp"
+        android:text="Cancel"
+        android:layout_toEndOf="@id/editSubBtn"
+        android:layout_marginStart="16dp"/>
+
+
+  </RelativeLayout>

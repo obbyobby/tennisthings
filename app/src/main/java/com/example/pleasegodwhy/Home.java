@@ -35,16 +35,16 @@ public class Home extends AppCompatActivity {
             finish();
         });
 
-        changeBookBtn.setOnClickListener(view -> {
-            Intent i = new Intent(Home.this, ChangeActivity.class);
+      changeBookBtn.setOnClickListener(view -> {
+           Intent i = new Intent(Home.this, ChangeActivity.class);
             startActivity(i);
             finish();
         });
 
-        pastBookBtn.setOnClickListener(view -> {
+       pastBookBtn.setOnClickListener(view -> {
             Intent i = new Intent(Home.this, pastActivity.class);
             startActivity(i);
-            finish();
+           finish();
         });
 
     }

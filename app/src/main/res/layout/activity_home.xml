@@ -94,7 +94,7 @@
         android:onClick="onClick"
         android:clickable="true"
         />
-
+-->
     <!--Bottom text Bar-->
     <TextView
         android:id="@+id/btmText"
